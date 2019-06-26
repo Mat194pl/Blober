@@ -1,0 +1,86 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Blob2.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ShaderDrawerContainer.gd" type="Script" id=2]
+[ext_resource path="res://ShaderDrawer.gd" type="Script" id=3]
+[ext_resource path="res://BlobBody.shader" type="Shader" id=4]
+[ext_resource path="res://icon.png" type="Texture" id=5]
+[ext_resource path="res://Floor.tscn" type="PackedScene" id=6]
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 4 )
+
+[node name="ViewportTest" type="Node2D"]
+
+[node name="Blob" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, 0 )
+
+[node name="ShaderDrawerContainer" type="Node2D" parent="."]
+editor/display_folded = true
+script = ExtResource( 2 )
+
+[node name="ViewportContainer" type="ViewportContainer" parent="ShaderDrawerContainer"]
+editor/display_folded = true
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="Viewport" type="Viewport" parent="ShaderDrawerContainer/ViewportContainer"]
+size = Vector2( 1024, 600 )
+transparent_bg = true
+handle_input_locally = false
+hdr = false
+disable_3d = true
+usage = 0
+render_target_update_mode = 3
+
+[node name="Camera2D" type="Camera2D" parent="ShaderDrawerContainer/ViewportContainer/Viewport"]
+offset = Vector2( 512, 300 )
+current = true
+editor_draw_limits = true
+
+[node name="ShaderDrawer" type="Node2D" parent="ShaderDrawerContainer/ViewportContainer/Viewport"]
+script = ExtResource( 3 )
+
+[node name="SpritesToDraw" type="Node2D" parent="ShaderDrawerContainer/ViewportContainer/Viewport"]
+
+[node name="ShaderView" type="Node2D" parent="."]
+editor/display_folded = true
+position = Vector2( 512, 300 )
+
+[node name="ShaderViewSprite" type="Sprite" parent="ShaderView"]
+material = SubResource( 2 )
+texture = ExtResource( 5 )
+flip_v = true
+
+[node name="Floor" parent="." instance=ExtResource( 6 )]
+position = Vector2( 344.04, 418.427 )
+
+[node name="Floor2" parent="." instance=ExtResource( 6 )]
+position = Vector2( 548.604, 500.252 )
+
+[node name="Floor4" parent="." instance=ExtResource( 6 )]
+position = Vector2( 675.062, 500.252 )
+
+[node name="Floor5" parent="." instance=ExtResource( 6 )]
+position = Vector2( 782.923, 464.919 )
+rotation = -0.724312
+
+[node name="Floor6" parent="." instance=ExtResource( 6 )]
+position = Vector2( 877.766, 383.093 )
+rotation = -0.724312
+
+[node name="Floor3" parent="." instance=ExtResource( 6 )]
+position = Vector2( 440.743, 461.199 )
+rotation = 0.724312
+
+[node name="Floor7" parent="." instance=ExtResource( 6 )]
+position = Vector2( 236.179, 373.795 )
+rotation = 0.724312
+
+[node name="Floor8" parent="." instance=ExtResource( 6 )]
+position = Vector2( 143.195, 284.53 )
+rotation = 0.724312
+

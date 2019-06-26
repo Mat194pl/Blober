@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://BlobBodyNode.shader" type="Shader" id=1]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/blue_tint = Color( 0.12549, 0.0745098, 1, 1 )
+

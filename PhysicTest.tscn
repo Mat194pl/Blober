@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Blob2.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Floor.tscn" type="PackedScene" id=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Blob" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, 0 )
+
+[node name="Floor" parent="." instance=ExtResource( 2 )]
+position = Vector2( 413.454, 403.307 )
+
+[node name="Floor7" parent="." instance=ExtResource( 2 )]
+position = Vector2( 654.454, 472.307 )
+
+[node name="Floor8" parent="." instance=ExtResource( 2 )]
+position = Vector2( 522.454, 439.307 )
+rotation = 0.380482
+
+[node name="Floor5" parent="." instance=ExtResource( 2 )]
+position = Vector2( 781.48, 439.288 )
+rotation = -0.523599
+
+[node name="Floor6" parent="." instance=ExtResource( 2 )]
+position = Vector2( 885.48, 380.288 )
+rotation = -0.523599
+
+[node name="Floor2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 282.808, 399.815 )
+
+[node name="Floor3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 163.394, 355.048 )
+rotation = 0.760963
+
+[node name="Floor4" parent="." instance=ExtResource( 2 )]
+position = Vector2( 67.8322, 264.632 )
+rotation = 0.760963
+

@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://CollBox.tscn" type="PackedScene" id=1]
+
+[node name="Floor" type="Node2D"]
+
+[node name="CollBox" parent="." instance=ExtResource( 1 )]
+position = Vector2( 55.6468, 0.0336151 )
+
+[node name="CollBox2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 33.4637, 0.0336151 )
+
+[node name="CollBox3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 11.2807, 0.0336151 )
+
+[node name="CollBox4" parent="." instance=ExtResource( 1 )]
+position = Vector2( -10.3343, 0.0336151 )
+
+[node name="CollBox6" parent="." instance=ExtResource( 1 )]
+position = Vector2( -54.3293, 0.0336151 )
+
+[node name="CollBox5" parent="." instance=ExtResource( 1 )]
+position = Vector2( -32.5173, 0.0336151 )
+
