@@ -24,14 +24,18 @@ func generate_blob_body( body_position:Vector2):
 	var center_point = node_object.instance()
 	blob_center = center_point
 	center_point.position = body_position
-	var nodes_count = 0
-	var leg_nodes_count = 3
+	var nodes_count = 6
+	var leg_nodes_count = 6
 	var radius = 50
 	
 	#center_point.is_static = true
 	var central_node_leg:Array = []
 	for j in range(leg_nodes_count):
-		central_node_leg.append(leg_object.instance())
+		var new_leg = leg_object.instance()
+		
+		central_node_leg.append(new_leg)
+		#if j > 0:
+		#	add_spring(central_node_leg[j], central_node_leg[j - 1])
 	center_point.add_leg_blobs(central_node_leg)
 	add_child(center_point)
 	blobs.append(center_point)
@@ -57,6 +61,8 @@ func generate_blob_body( body_position:Vector2):
 			first_point = new_point
 		new_point.position = Vector2(sin(i * degress_per_node), cos(i * degress_per_node)) * radius + body_position
 		add_child(new_point)
+		for j in range(leg_nodes_count):
+			add_child(new_leg[j])
 		add_spring(new_point, center_point)
 		if previous_point != null:
 			add_spring(new_point, previous_point)

@@ -11,6 +11,7 @@ extents = Vector2( 10.9351, 10 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
+visible = false
 scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 1 )
 

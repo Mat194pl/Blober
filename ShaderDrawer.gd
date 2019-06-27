@@ -18,8 +18,8 @@ func set_object_to_draw(obj_to_draw):
 		var is_drawable = false
 		# Check if child object has child sprite
 		var child_class = child.get_class()
-		if child_class != "BlobNode" and child_class != "BlobBodyLeg":
-			continue
+		#if child_class != "BlobNode" and child_class != "BlobBodyLeg":
+		#	continue
 		for child_children in child.get_children():
 			if child_children.get_class() == "Sprite":
 				is_drawable = true

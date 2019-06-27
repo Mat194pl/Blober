@@ -11,6 +11,9 @@ var neighbors:Array = []
 var resting_length:Array = []
 var near_bodies:Array = []
 var leg_bodies:Array = []
+var leg_destination:Array = []
+var leg_reset_position = false
+
 var nearest_body = null;
 var last_nearest_body = null;
 var velocity := Vector2( 0.0, 0.0 )
@@ -18,6 +21,7 @@ var previous_position := Vector2( 0.0, 0.0 )
 var nearest_body_force = 20000.0
 onready var detector = $ObjectDetectionZone
 var is_central_node = false
+
 
 export(bool) var is_static:bool = false setget set_static
 func set_static(value):
@@ -35,9 +39,16 @@ func add_neighbor(blob_node):
 	resting_length.append((blob_node.position - position).length())
 
 func add_leg_blobs(legs:Array):
-	for leg in legs:
-		leg_bodies.append(leg)
-	pass
+	leg_destination.clear()
+	for i in range(legs.size()):
+		# get child sprite
+		var child_sprite = legs[i].find_node("NodeSprite")
+		var scalar = (1 - ((i + 1.0) / legs.size())) * 0.3 + 0.7
+		child_sprite.set_scale(Vector2(1.0, 1.0) * scalar)
+		leg_destination.append(Vector2())
+		leg_bodies.append(legs[i])
+
+	
 
 func compute_force():
 	force = Vector2()
@@ -115,16 +126,48 @@ func _process(delta):
 	if nearest_body != null:
 		leg_bodies[0].position = position
 		if nearest_body != last_nearest_body:
+			leg_reset_position = true
+		if true:
 			for i in range (leg_bodies.size()):
 				if i == 0:
+					leg_destination[i] = position
 					pass
 				elif i == (leg_bodies.size() - 1):
-					leg_bodies.back().position = nearest_body.get_global_position()
+					leg_destination[i] = nearest_body.get_global_position()
 				else:
-					leg_bodies[i].position = position + (nearest_body.get_global_position() - position) / (i + 1)
-					pass
+					leg_destination[i] = position + i * ((nearest_body.get_global_position() - position) / (leg_bodies.size() - 1))
+		
+
+		#if true: #nearest_body != last_nearest_body:
+		#	for i in range (leg_bodies.size()):
+		#		if i == 0:
+		#			pass
+		#		elif i == (leg_bodies.size() - 1):
+		#			leg_bodies.back().position = nearest_body.get_global_position()
+		#		else:
+		#			leg_bodies[i].position = position + i * ((nearest_body.get_global_position() - position) / (i + 1))
 		
 		last_nearest_body = nearest_body
+	else:
+		for i in range(leg_bodies.size()):
+			leg_destination[i] = position
+		#	leg.position = Vector2(-500.0, -500.0)
+		
+	for i in range(leg_bodies.size()):
+		if true:#i == 0 or i == (leg_bodies.size() - 1):
+			if not leg_reset_position:
+				if (leg_destination[i] != leg_bodies[i].position):
+					leg_bodies[i].position += (leg_destination[i] - leg_bodies[i].position) / 30
+			else:
+				if (leg_destination[i] != leg_bodies[i].position):
+					leg_bodies[i].position += (position - leg_bodies[i].position) / 10
+				if (leg_bodies.back().position.distance_to(position) < 60.0):
+					leg_reset_position = false
+		else:
+			if leg_bodies[i].position.distance_to(leg_bodies[i + 1].position) > (leg_bodies[0].position.distance_to(leg_bodies.back().position) / leg_bodies.size()):
+				leg_bodies[i].position += (leg_bodies[i + 1].position - leg_bodies[i].position) / 2
+			if leg_bodies[i].position.distance_to(leg_bodies[i - 1].position) > (leg_bodies[0].position.distance_to(leg_bodies.back().position) / leg_bodies.size()):
+				leg_bodies[i].position += (leg_bodies[i - 1].position - leg_bodies[i].position) / 2
 	#if detected_bodies.size() > 1:
 	#	print(detected_bodies.size())
 	update()
